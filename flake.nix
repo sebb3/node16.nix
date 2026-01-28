@@ -11,7 +11,7 @@
         inherit (p.stdenv) system;
         config = {
           permittedInsecurePackages = [
-            "nodejs_16"
+            "nodejs-16.20.2"
           ];
         };
       };

@@ -7,19 +7,17 @@
     { nixpkgs, ... }:
     {
       overlays.default =
-        self: super:
-        let
-          pkgs = (
-            import nixpkgs {
-              inherit (self.stdenv) system;
-              config = {
-                permittedInsecurePackages = [ "nodejs-16.20.2" ];
-              };
-            }
-          );
-        in
-        {
-          inherit (pkgs) nodejs_16;
+      let pkgs = p: import nixpkgs {
+        inherit (p.stdenv) system;
+        config = {
+          permittedInsecurePackages = [
+            "nodejs_16"
+          ];
+        };
+      };
+      in
+        final: prev: {
+          nodejs_16 = (pkgs prev).nodejs_16;
         };
     };
 }

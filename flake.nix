@@ -4,7 +4,7 @@
     flake = false;
   };
   outputs =
-    { nixpkgs, ... }:
+    { nixpkgs,self, ... }:
     {
       overlays.default =
       let pkgs = p: import nixpkgs {
@@ -19,5 +19,6 @@
         final: prev: {
           nodejs_16 = (pkgs prev).nodejs_16;
         };
+    packages.aarch64-darwin.default = (import nixpkgs { system = "aarch64-darwin"; overlays = [ self.overlays.default ]; }).nodejs_16;
     };
 }
